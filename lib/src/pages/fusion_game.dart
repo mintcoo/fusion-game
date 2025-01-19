@@ -7,7 +7,7 @@ import 'package:flame/game.dart';
 import '../components/components.dart';
 import '../config.dart';
 
-class FusionGame extends FlameGame {
+class FusionGame extends FlameGame with HasCollisionDetection {
   FusionGame()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -16,7 +16,6 @@ class FusionGame extends FlameGame {
           ),
         );
 
-  final rand = math.Random();
   // 게임 화면 너비 (CameraComponent.withFixedResolution()에서 지정한 크기로 초기화됨)
   double get width => size.x;
   // 게임 화면 높이
@@ -32,15 +31,11 @@ class FusionGame extends FlameGame {
     // 플레이 영역 추가
     world.add(PlayArea());
 
-    world.add(
-      Ball(
-        radius: ballRadius,
-        position: Vector2(size.x / 2, size.y * 0.01), // 화면 상단 중앙에 위치하도록 변경
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
-            .normalized()
-          ..scale(height / 40),
-      ),
-    );
+    // world.add(
+    //   Fruit(
+    //     position: Vector2(size.x / 2, size.y * 0), // 화면 상단 중앙에 위치하도록 변경
+    //   ),
+    // );
 
     debugMode = true;
   }
